@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengumuman OSIS SMA Bruderan Purwokerto</title>
-    <!-- Import Font Poppins dari Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Desain UI modern dan bersih */
         * {
             box-sizing: border-box;
         }
         body { 
             font-family: 'Poppins', sans-serif; 
-            /* Background gradien biru modern */
             background: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC);
             background-size: 400% 400%;
             animation: gradientBG 10s ease infinite;
@@ -43,7 +40,6 @@
             overflow: hidden;
         }
 
-        /* Hiasan atas kartu */
         .container::before {
             content: '';
             position: absolute;
@@ -54,16 +50,10 @@
             background: linear-gradient(to right, #0052D4, #4364F7);
         }
 
+        /* Animasi dihapus, ikon diam */
         .icon-header {
             font-size: 3rem;
             margin-bottom: 10px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
         }
 
         h1 { 
@@ -75,19 +65,19 @@
         }
         p.subtitle { 
             color: #64748b; 
-            margin-bottom: 2.5rem; 
+            margin-bottom: 2rem; 
             font-weight: 500;
             font-size: 1.1rem;
         }
 
         .input-group {
             position: relative;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         input[type="text"] { 
             width: 100%; 
-            padding: 16px 20px; 
+            padding: 14px 20px; 
             border: 2px solid #e2e8f0; 
             border-radius: 12px; 
             font-size: 1.05rem;
@@ -118,6 +108,7 @@
             transition: all 0.3s ease;
             font-weight: 600;
             width: 100%;
+            margin-top: 0.5rem;
             box-shadow: 0 4px 15px rgba(67, 100, 247, 0.3);
         }
         button:hover { 
@@ -128,7 +119,6 @@
             transform: translateY(1px);
         }
         
-        /* Desain Surat Pengumuman */
         .result-card { 
             margin-top: 2rem; 
             padding: 2rem 1.5rem; 
@@ -185,7 +175,6 @@
             color: #0f172a;
         }
         
-        /* Footer pengumuman */
         .ttd {
             margin-top: 25px;
             font-style: italic;
@@ -205,62 +194,70 @@
         <div class="input-group">
             <input type="text" id="nameInput" placeholder="Masukkan Nama Lengkap Anda..." autocomplete="off">
         </div>
+        <div class="input-group">
+            <input type="text" id="codeInput" placeholder="Masukkan 5 Digit Kode Peserta..." autocomplete="off" maxlength="5">
+        </div>
+        
         <button onclick="checkStatus()">Cek Hasil Seleksi</button>
 
         <div id="resultContainer" class="result-card"></div>
     </div>
 
     <script>
-        // DAFTAR NAMA YANG DITERIMA (Sesuai dengan daftar terbaru)
-        // Ditulis huruf kecil semua untuk mempermudah pencocokan sistem
+        // DAFTAR NAMA DAN KODE PESERTA YANG DITERIMA
+        // Disimpan dalam format objek. Kode dibuat unik 5 digit.
         const daftarDiterima = [
-            "jonaskhan christian jati wibowo",
-            "stevano raditya alvaro",
-            "richard roffa edshe hertaliem",
-            "samuel gerrard nevan wibowo",
-            "valentinus samuel yudhistira",
-            "viola felicia sihombing",
-            "caroline thian zakila setiawan",
-            "jessica etsy amarise",
-            "oliva louise christabel",
-            "ilovia christi avira wijayanto",
-            "rafael hardianto",
-            "faithlene nauli lim",
-            "yonathan nathanael kurniawan",
-            "edward halomoan marpaung",
-            "eunike cristabella wijaya",
-            "dionisius azriel turnip",
-            "yehezkiel ivander arietama",
-            "bryan immanuel",
-            "devan manuel tristan",
-            "kevin setiawan",
-            "julia evelyna",
-            "keith nielsen yap",
-            "gracio mahameru syallom"
+            { nama: "jonaskhan christian jati wibowo", kode: "JK83A" },
+            { nama: "stevano raditya alvaro", kode: "SR49F" },
+            { nama: "richard roffa edshe hertaliem", kode: "RR27M" },
+            { nama: "samuel gerrard nevan wibowo", kode: "SG51K" },
+            { nama: "valentinus samuel yudhistira", kode: "VS94P" },
+            { nama: "viola felicia sihombing", kode: "VF62L" },
+            { nama: "caroline thian zakila setiawan", kode: "CT18D" },
+            { nama: "jessica etsy amarise", kode: "JE75B" },
+            { nama: "oliva louise christabel", kode: "OL36N" },
+            { nama: "ilovia christi avira wijayanto", kode: "IC09X" },
+            { nama: "rafael hardianto", kode: "RH44Y" },
+            { nama: "faithlene nauli lim", kode: "FN81C" },
+            { nama: "yonathan nathanael kurniawan", kode: "YN25W" },
+            { nama: "edward halomoan marpaung", kode: "EH68Q" },
+            { nama: "eunike cristabella wijaya", kode: "EC37Z" },
+            { nama: "dionisius azriel turnip", kode: "DA92T" },
+            { nama: "yehezkiel ivander arietama", kode: "YI55R" },
+            { nama: "bryan immanuel", kode: "BI73E" },
+            { nama: "devan manuel tristan", kode: "DM16H" },
+            { nama: "kevin setiawan", kode: "KS88V" },
+            { nama: "julia evelyna", kode: "JE21U" },
+            { nama: "keith nielsen yap", kode: "KN47G" },
+            { nama: "gracio mahameru syallom", kode: "GM99J" }
         ];
 
         function checkStatus() {
             let inputName = document.getElementById('nameInput').value.toLowerCase().trim();
-            // Spasi ganda di tengah nama diganti menjadi spasi tunggal
             inputName = inputName.replace(/\s+/g, ' '); 
+            
+            // Ambil input kode, jadikan huruf besar semua dan hilangkan spasi
+            let inputCode = document.getElementById('codeInput').value.toUpperCase().trim();
             
             const resultContainer = document.getElementById('resultContainer');
             
-            // Reset animasi dengan cara me-retrigger reflow
             resultContainer.style.display = 'none';
             void resultContainer.offsetWidth; 
             resultContainer.style.display = 'block';
 
-            if (inputName === "") {
+            // Validasi jika ada form yang kosong
+            if (inputName === "" || inputCode === "") {
                 resultContainer.className = 'result-card warning';
-                resultContainer.innerHTML = "⚠️ <strong>Perhatian:</strong> Harap masukkan nama lengkap Anda terlebih dahulu.";
+                resultContainer.innerHTML = "⚠️ <strong>Perhatian:</strong> Harap masukkan Nama Lengkap dan Kode Peserta dengan benar.";
                 return;
             }
 
-            // Memformat nama agar huruf awalnya kapital (Title Case)
             const formattedName = inputName.replace(/\b\w/g, char => char.toUpperCase());
 
-            if (daftarDiterima.includes(inputName)) {
+            // Mencari apakah ada siswa yang Nama DAN Kodenya cocok persis
+            const isAccepted = daftarDiterima.some(peserta => peserta.nama === inputName && peserta.kode === inputCode);
+
+            if (isAccepted) {
                 // Surat Diterima
                 resultContainer.className = 'result-card accepted';
                 resultContainer.innerHTML = `
@@ -271,20 +268,28 @@
                     <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
                 `;
             } else {
-                // Surat Ditolak
+                // Surat Ditolak atau Kode Salah
+                // Pesan digabung agar orang lain tidak bisa menebak-nebak nama peserta yang lolos
                 resultContainer.className = 'result-card rejected';
                 resultContainer.innerHTML = `
-                    <h3>❌ Tetap Semangat!</h3>
+                    <h3>❌ Data Tidak Ditemukan</h3>
                     <p>Yth. <strong>${formattedName}</strong>,</p>
-                    <p>Mohon maaf, Anda dinyatakan <strong>BELUM DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto Masa Bakti 2026/2027.</p>
-                    <p>Terima kasih atas partisipasi dan antusiasme Anda. Jangan patah semangat dan teruslah berkarya di kesempatan lainnya!</p>
+                    <p>Mohon maaf, kombinasi Nama dan Kode Peserta tidak cocok, atau Anda dinyatakan <strong>BELUM DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto Masa Bakti 2026/2027.</p>
+                    <p>Terima kasih atas partisipasinya. Jangan patah semangat dan teruslah berkarya!</p>
                     <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
                 `;
             }
         }
         
-        // Memungkinkan user menekan tombol "Enter" di keyboard untuk mengecek
+        // Memungkinkan user menekan tombol "Enter" di kedua input
         document.getElementById("nameInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("codeInput").focus(); // Pindah ke input kode
+            }
+        });
+
+        document.getElementById("codeInput").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
                 checkStatus();
