@@ -50,7 +50,7 @@
             background: linear-gradient(to right, #0052D4, #4364F7);
         }
 
-        /* Animasi dihapus, ikon diam */
+        /* Animasi dihapus secara permanen, ikon diam */
         .icon-header {
             font-size: 3rem;
             margin-bottom: 10px;
@@ -72,7 +72,7 @@
 
         .input-group {
             position: relative;
-            margin-bottom: 1rem;
+            margin-bottom: 15px; /* Jarak antar input bar */
         }
 
         input[type="text"] { 
@@ -108,7 +108,7 @@
             transition: all 0.3s ease;
             font-weight: 600;
             width: 100%;
-            margin-top: 0.5rem;
+            margin-top: 10px;
             box-shadow: 0 4px 15px rgba(67, 100, 247, 0.3);
         }
         button:hover { 
@@ -187,13 +187,17 @@
 </head>
 <body>
     <div class="container">
+        <!-- Ikon topi diam -->
         <div class="icon-header">🎓</div>
         <h1>Pengumuman Seleksi OSIS</h1>
         <p class="subtitle">SMA Bruderan Purwokerto 2026/2027</p>
 
+        <!-- Bar Input 1: Nama -->
         <div class="input-group">
             <input type="text" id="nameInput" placeholder="Masukkan Nama Lengkap Anda..." autocomplete="off">
         </div>
+        
+        <!-- Bar Input 2: Kode Peserta -->
         <div class="input-group">
             <input type="text" id="codeInput" placeholder="Masukkan 5 Digit Kode Peserta..." autocomplete="off" maxlength="5">
         </div>
@@ -204,8 +208,6 @@
     </div>
 
     <script>
-        // DAFTAR NAMA DAN KODE PESERTA YANG DITERIMA
-        // Disimpan dalam format objek. Kode dibuat unik 5 digit.
         const daftarDiterima = [
             { nama: "jonaskhan christian jati wibowo", kode: "JK83A" },
             { nama: "stevano raditya alvaro", kode: "SR49F" },
@@ -236,7 +238,6 @@
             let inputName = document.getElementById('nameInput').value.toLowerCase().trim();
             inputName = inputName.replace(/\s+/g, ' '); 
             
-            // Ambil input kode, jadikan huruf besar semua dan hilangkan spasi
             let inputCode = document.getElementById('codeInput').value.toUpperCase().trim();
             
             const resultContainer = document.getElementById('resultContainer');
@@ -245,7 +246,6 @@
             void resultContainer.offsetWidth; 
             resultContainer.style.display = 'block';
 
-            // Validasi jika ada form yang kosong
             if (inputName === "" || inputCode === "") {
                 resultContainer.className = 'result-card warning';
                 resultContainer.innerHTML = "⚠️ <strong>Perhatian:</strong> Harap masukkan Nama Lengkap dan Kode Peserta dengan benar.";
@@ -254,11 +254,9 @@
 
             const formattedName = inputName.replace(/\b\w/g, char => char.toUpperCase());
 
-            // Mencari apakah ada siswa yang Nama DAN Kodenya cocok persis
             const isAccepted = daftarDiterima.some(peserta => peserta.nama === inputName && peserta.kode === inputCode);
 
             if (isAccepted) {
-                // Surat Diterima
                 resultContainer.className = 'result-card accepted';
                 resultContainer.innerHTML = `
                     <h3>✅ Selamat, Anda Lolos!</h3>
@@ -268,8 +266,6 @@
                     <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
                 `;
             } else {
-                // Surat Ditolak atau Kode Salah
-                // Pesan digabung agar orang lain tidak bisa menebak-nebak nama peserta yang lolos
                 resultContainer.className = 'result-card rejected';
                 resultContainer.innerHTML = `
                     <h3>❌ Data Tidak Ditemukan</h3>
@@ -281,11 +277,10 @@
             }
         }
         
-        // Memungkinkan user menekan tombol "Enter" di kedua input
         document.getElementById("nameInput").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
-                document.getElementById("codeInput").focus(); // Pindah ke input kode
+                document.getElementById("codeInput").focus();
             }
         });
 
