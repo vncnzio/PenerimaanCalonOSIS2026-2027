@@ -50,7 +50,6 @@
             background: linear-gradient(to right, #0052D4, #4364F7);
         }
 
-        /* Animasi dihapus secara permanen, ikon diam */
         .icon-header {
             font-size: 3rem;
             margin-bottom: 10px;
@@ -72,7 +71,7 @@
 
         .input-group {
             position: relative;
-            margin-bottom: 15px; /* Jarak antar input bar */
+            margin-bottom: 15px;
         }
 
         input[type="text"] { 
@@ -159,7 +158,14 @@
         }
         .rejected h3 { border-bottom: 2px solid #ef4444; }
 
-        .warning { 
+        .not-found { 
+            background-color: #f8fafc; 
+            color: #475569; 
+            border: 1px solid #cbd5e1; 
+            text-align: center;
+        }
+        
+        .warning {
             background-color: #fffbeb; 
             color: #92400e; 
             border: 1px solid #fde68a; 
@@ -187,17 +193,14 @@
 </head>
 <body>
     <div class="container">
-        <!-- Ikon topi diam -->
         <div class="icon-header">🎓</div>
         <h1>Pengumuman Seleksi OSIS</h1>
         <p class="subtitle">SMA Bruderan Purwokerto 2026/2027</p>
 
-        <!-- Bar Input 1: Nama -->
         <div class="input-group">
             <input type="text" id="nameInput" placeholder="Masukkan Nama Lengkap Anda..." autocomplete="off">
         </div>
         
-        <!-- Bar Input 2: Kode Peserta -->
         <div class="input-group">
             <input type="text" id="codeInput" placeholder="Masukkan 5 Digit Kode Peserta..." autocomplete="off" maxlength="5">
         </div>
@@ -234,6 +237,26 @@
             { nama: "gracio mahameru syallom", kode: "GM99J" }
         ];
 
+        const daftarDitolak = [
+            { nama: "melvin christian roring", kode: "MC12R" },
+            { nama: "febrya salfa bella", kode: "FS34B" },
+            { nama: "gracia stephanie ananta", kode: "GS56A" },
+            { nama: "mikha athalia indarto", kode: "MA78I" },
+            { nama: "matthew jason wijaya ong", kode: "MJ90W" },
+            { nama: "clarissa vidni putri christanto", kode: "CV21P" },
+            { nama: "agatha marceline rachmat", kode: "AM43R" },
+            { nama: "christian hendra suryadjie", kode: "CH65S" },
+            { nama: "edgar noah tan", kode: "EN87T" },
+            { nama: "eufrosina yohanita violin christiani", kode: "EY09V" },
+            { nama: "nathanael rafel yapto susanto", kode: "NR32Y" },
+            { nama: "gerald melvin julianto", kode: "GM54J" },
+            { nama: "nathania christly wibowo", kode: "NC76W" },
+            { nama: "kresna gaza sabillilah", kode: "KG98S" },
+            { nama: "joshua jason wiradi", kode: "JJ10W" },
+            { nama: "louis benny elson", kode: "LB35E" },
+            { nama: "nona axella silalahi", kode: "NA57S" }
+        ];
+
         function checkStatus() {
             let inputName = document.getElementById('nameInput').value.toLowerCase().trim();
             inputName = inputName.replace(/\s+/g, ' '); 
@@ -248,13 +271,14 @@
 
             if (inputName === "" || inputCode === "") {
                 resultContainer.className = 'result-card warning';
-                resultContainer.innerHTML = "⚠️ <strong>Perhatian:</strong> Harap masukkan Nama Lengkap dan Kode Peserta dengan benar.";
+                resultContainer.innerHTML = "⚠️️ <strong>Perhatian:</strong> Harap masukkan Nama Lengkap dan Kode Peserta dengan benar.";
                 return;
             }
 
             const formattedName = inputName.replace(/\b\w/g, char => char.toUpperCase());
 
             const isAccepted = daftarDiterima.some(peserta => peserta.nama === inputName && peserta.kode === inputCode);
+            const isRejected = daftarDitolak.some(peserta => peserta.nama === inputName && peserta.kode === inputCode);
 
             if (isAccepted) {
                 resultContainer.className = 'result-card accepted';
@@ -265,14 +289,21 @@
                     <p>Langkah selanjutnya, harap menghadiri rapat perdana di Ruang OSIS sesuai jadwal yang telah ditentukan oleh panitia.</p>
                     <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
                 `;
-            } else {
+            } else if (isRejected) {
                 resultContainer.className = 'result-card rejected';
                 resultContainer.innerHTML = `
-                    <h3>❌ Data Tidak Ditemukan</h3>
+                    <h3>❌ Tetap Semangat!</h3>
                     <p>Yth. <strong>${formattedName}</strong>,</p>
-                    <p>Mohon maaf, kombinasi Nama dan Kode Peserta tidak cocok, atau Anda dinyatakan <strong>BELUM DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto Masa Bakti 2026/2027.</p>
-                    <p>Terima kasih atas partisipasinya. Jangan patah semangat dan teruslah berkarya!</p>
+                    <p>Mohon maaf, Anda dinyatakan <strong>BELUM DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto Masa Bakti 2026/2027.</p>
+                    <p>Terima kasih atas partisipasi dan antusiasme Anda. Jangan patah semangat dan teruslah berkarya di kesempatan lainnya!</p>
                     <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
+                `;
+            } else {
+                resultContainer.className = 'result-card not-found';
+                resultContainer.innerHTML = `
+                    <h3 style="justify-content:center;">🔍 Data Tidak Ditemukan</h3>
+                    <p>Mohon maaf, kombinasi Nama dan Kode Peserta tidak cocok, atau data tidak terdaftar di sistem kami.</p>
+                    <p>Pastikan Anda mengetik nama dan kode dengan benar.</p>
                 `;
             }
         }
