@@ -325,4 +325,35 @@
             } else if (isRejected) {
                 resultContainer.className = 'result-card rejected';
                 resultContainer.innerHTML = `
-                    <h3>❌ Tetap Semangat!
+                    <h3>❌ Tetap Semangat!</h3>
+                    <p>Yth. <strong>${formattedName}</strong>,</p>
+                    <p>Mohon maaf, Anda dinyatakan <strong>BELUM DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto Masa Bakti 2026/2027.</p>
+                    <p>Terima kasih atas partisipasi dan antusiasme Anda. Jangan patah semangat dan teruslah berkarya di kesempatan lainnya!</p>
+                    <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
+                `;
+            } else {
+                resultContainer.className = 'result-card not-found';
+                resultContainer.innerHTML = `
+                    <h3 style="justify-content:center;">🔍 Data Tidak Ditemukan</h3>
+                    <p>Mohon maaf, kombinasi Nama dan Kode Peserta tidak cocok, atau data tidak terdaftar di sistem kami.</p>
+                    <p>Pastikan Anda mengetik nama dan kode dengan benar.</p>
+                `;
+            }
+        }
+        
+        document.getElementById("nameInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("codeInput").focus();
+            }
+        });
+
+        document.getElementById("codeInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                checkStatus();
+            }
+        });
+    </script>
+</body>
+</html>
