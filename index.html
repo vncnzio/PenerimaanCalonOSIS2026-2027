@@ -198,11 +198,11 @@
         <p class="subtitle">SMA Bruderan Purwokerto 2026/2027</p>
 
         <div class="input-group">
-            <input type="text" id="nameInput" placeholder="Nama Lengkap Anda" autocomplete="off">
+            <input type="text" id="nameInput" placeholder="Masukkan Nama Lengkap Anda..." autocomplete="off">
         </div>
         
         <div class="input-group">
-            <input type="text" id="codeInput" placeholder="5 Digit Kode Peserta" autocomplete="off" maxlength="5">
+            <input type="text" id="codeInput" placeholder="Masukkan 5 Digit Kode Peserta..." autocomplete="off" maxlength="5">
         </div>
         
         <button onclick="checkStatus()">Cek Hasil Seleksi</button>
@@ -271,7 +271,7 @@
 
             if (inputName === "" || inputCode === "") {
                 resultContainer.className = 'result-card warning';
-                resultContainer.innerHTML = "<strong>Perhatian:</strong> Harap masukkan Nama Lengkap dan Kode Peserta dengan benar.";
+                resultContainer.innerHTML = "⚠ <strong>Perhatian:</strong> Harap masukkan Nama Lengkap dan Kode Peserta dengan benar.";
                 return;
             }
 
@@ -281,20 +281,29 @@
             const isRejected = daftarDitolak.some(peserta => peserta.nama === inputName && peserta.kode === inputCode);
 
             if (isAccepted) {
+                // Tampilan untuk peserta yang lolos dengan penambahan QR Code
                 resultContainer.className = 'result-card accepted';
                 resultContainer.innerHTML = `
-                    <h3>Selamat, Anda Lolos!</h3>
+                    <h3>✅ Selamat, Anda Lolos!</h3>
                     <p>Yth. <strong>${formattedName}</strong>,</p>
-                    <p>Berdasarkan hasil seleksi, Anda dinyatakan <strong>DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto 2026/2027.</p>
-                    <p>Bagi yang keterima, dapat masuk ke grup whatsapp.</p>
+                    <p>Berdasarkan hasil seleksi, Anda dinyatakan <strong>DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto Masa Bakti 2026/2027.</p>
+                    <p>Silakan bergabung ke dalam Grup WhatsApp Pengurus OSIS dengan mengeklik atau memindai (scan) QR code di bawah ini.</p>
+                    
+                    <div style="text-align: center; margin: 25px 0 15px 0; padding: 20px; background-color: #ffffff; border-radius: 12px; border: 1px dashed #22c55e;">
+                        <a href="https://chat.whatsapp.com/MasukanLinkGrupAndaDisini" target="_blank">
+                            <img src="1000115858.png" alt="QR Code Grup WA" style="width: 160px; height: 160px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        </a>
+                        <p style="font-size: 0.9rem; margin-top: 15px; margin-bottom: 0; font-weight: 600; color: #166534;">Klik QR Code untuk bergabung</p>
+                    </div>
+
                     <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
                 `;
             } else if (isRejected) {
                 resultContainer.className = 'result-card rejected';
                 resultContainer.innerHTML = `
-                    <h3>Tetap Semangat!</h3>
+                    <h3>❌ Tetap Semangat!</h3>
                     <p>Yth. <strong>${formattedName}</strong>,</p>
-                    <p>Mohon maaf, Anda dinyatakan <strong>BELUM DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto 2026/2027.</p>
+                    <p>Mohon maaf, Anda dinyatakan <strong>BELUM DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto Masa Bakti 2026/2027.</p>
                     <p>Terima kasih atas partisipasi dan antusiasme Anda. Jangan patah semangat dan teruslah berkarya di kesempatan lainnya!</p>
                     <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
                 `;
