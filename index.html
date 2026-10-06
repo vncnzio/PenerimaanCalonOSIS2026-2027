@@ -271,7 +271,7 @@
 
             if (inputName === "" || inputCode === "") {
                 resultContainer.className = 'result-card warning';
-                resultContainer.innerHTML = "⚠️️ <strong>Perhatian:</strong> Harap masukkan Nama Lengkap dan Kode Peserta dengan benar.";
+                resultContainer.innerHTML = "<strong>Perhatian:</strong> Harap masukkan Nama Lengkap dan Kode Peserta dengan benar.";
                 return;
             }
 
@@ -283,18 +283,18 @@
             if (isAccepted) {
                 resultContainer.className = 'result-card accepted';
                 resultContainer.innerHTML = `
-                    <h3>✅ Selamat, Anda Lolos!</h3>
+                    <h3>Selamat, Anda Lolos!</h3>
                     <p>Yth. <strong>${formattedName}</strong>,</p>
                     <p>Berdasarkan hasil seleksi, Anda dinyatakan <strong>DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto Masa Bakti 2026/2027.</p>
-                    <p>Bagi yang keterima, dapat masuk ke grup whatsapp berikut: https://chat.whatsapp .com/J83LdlkIIwU40zZdlA0KrL.</p>
+                    <p>Bagi yang keterima, dapat masuk ke grup whatsapp.</p>
                     <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
                 `;
             } else if (isRejected) {
                 resultContainer.className = 'result-card rejected';
                 resultContainer.innerHTML = `
-                    <h3>❌ Tetap Semangat!</h3>
+                    <h3>Tetap Semangat!</h3>
                     <p>Yth. <strong>${formattedName}</strong>,</p>
-                    <p>Mohon maaf, Anda dinyatakan <strong>BELUM DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto Masa Bakti 2026/2027.</p>
+                    <p>Mohon maaf, Anda dinyatakan <strong>BELUM DITERIMA</strong> sebagai pengurus OSIS SMA Bruderan Purwokerto 2026/2027.</p>
                     <p>Terima kasih atas partisipasi dan antusiasme Anda. Jangan patah semangat dan teruslah berkarya di kesempatan lainnya!</p>
                     <div class="ttd">Panitia Seleksi OSIS<br>SMA Bruderan Purwokerto</div>
                 `;
